@@ -1,0 +1,76 @@
+<div class="page-wrapper">
+  <!-- simple box -->
+  <div class="container simple-box">
+    <div class="col-sm-12">
+      <!-- simple box logo -->
+      <div class="row">
+        <img ng-if="ctrl.logo" ng-src="{{ ctrl.logo }}" class="simple-box-logo" />
+        <img ng-if="!ctrl.logo" src="~@/assets/images/logo_alt.png" class="simple-box-logo" alt="Portainer" />
+      </div>
+      <!-- !simple box logo -->
+      <!-- init-endpoint panel -->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <!-- init-endpoint form -->
+          <form class="simple-box-form form-horizontal">
+            <!-- note -->
+            <div class="form-group">
+              <div class="col-sm-12">
+                <span class="small text-muted">
+                  Connect Portainer to the container environment you want to manage.
+                </span>
+              </div>
+            </div>
+            <!-- !note -->
+            <!-- endpoint-type -->
+            <div class="form-group" style="margin-bottom: 0;">
+              <div class="boxselector_wrapper">
+                <div ng-repeat="type in ctrl.endpointSections">
+                  <input type="radio" id="{{ type.Id }}" ng-model="ctrl.formValues.ConnectionType" ng-value="type.Value" />
+                  <label for="{{ type.Id }}">
+                    <div class="boxselector_header">
+                      <i ng-class="type.Classes" aria-hidden="true" style="margin-right: 2px;"></i>
+                      {{ type.Title }}
+                    </div>
+                    <p>{{ type.Description }}</p>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- !endpoint-type  -->
+            <!-- endpoint-type-details -->
+            <div ng-if="ctrl.formValues.ConnectionType === ctrl.PortainerEndpointConnectionTypes.DOCKER_LOCAL">
+              <ng-include src="'app/portainer/views/init/endpoint/includes/localDocker.html'"></ng-include>
+            </div>
+            <div ng-if="ctrl.formValues.ConnectionType === ctrl.PortainerEndpointConnectionTypes.KUBERNETES_LOCAL">
+              <ng-include src="'app/portainer/views/init/endpoint/includes/localKubernetes.html'"></ng-include>
+            </div>
+            <div ng-if="ctrl.formValues.ConnectionType === ctrl.PortainerEndpointConnectionTypes.AGENT">
+              <ng-include src="'app/portainer/views/init/endpoint/includes/agent.html'"></ng-include>
+            </div>
+            <!-- !endpoint-type-details -->
+            <!-- actions -->
+            <div class="form-group">
+              <div class="col-sm-12">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-sm"
+                  ng-disabled="ctrl.isConnectButtonDisabled()"
+                  ng-click="ctrl.createEndpoint()"
+                  button-spinner="ctrl.state.actionInProgress"
+                >
+                  <span ng-hide="ctrl.state.actionInProgress"><i class="fa fa-bolt" aria-hidden="true"></i> Connect</span>
+                  <span ng-show="ctrl.state.actionInProgress">Connecting...</span>
+                </button>
+              </div>
+            </div>
+            <!-- !actions -->
+          </form>
+          <!-- !init-endpoint form -->
+        </div>
+      </div>
+      <!-- !init-endpoint panel -->
+    </div>
+  </div>
+  <!-- !simple box -->
+</div>

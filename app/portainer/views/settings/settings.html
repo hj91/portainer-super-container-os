@@ -1,0 +1,286 @@
+<rd-header>
+  <rd-header-title title-text="Settings"></rd-header-title>
+  <rd-header-content>Settings</rd-header-content>
+</rd-header>
+
+<div class="row">
+  <div class="col-sm-12">
+    <rd-widget>
+      <rd-widget-header icon="fa-cogs" title-text="Application settings"></rd-widget-header>
+      <rd-widget-body>
+        <form class="form-horizontal">
+          <!-- snapshot-interval -->
+          <div class="form-group">
+            <label for="snapshot_interval" class="col-sm-2 control-label text-left">Snapshot interval</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" ng-model="settings.SnapshotInterval" id="snapshot_interval" placeholder="e.g. 15m" />
+            </div>
+          </div>
+          <!-- !snapshot-interval -->
+          <!-- logo -->
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="toggle_logo" class="control-label text-left">
+                Use custom logo
+              </label>
+              <label class="switch" style="margin-left: 20px;"> <input type="checkbox" name="toggle_logo" ng-model="formValues.customLogo" /><i></i> </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="toggle_enableTelemetry" class="control-label text-left">
+                Allow the collection of anonymous statistics
+              </label>
+              <label class="switch" style="margin-left: 20px;"> <input type="checkbox" name="toggle_enableTelemetry" ng-model="formValues.enableTelemetry" /><i></i> </label>
+            </div>
+            <div class="col-sm-12 text-muted small" style="margin-top: 10px;">
+              You can find more information about this in our
+              <a href="https://www.portainer.io/documentation/in-app-analytics-and-privacy-policy/" target="_blank">privacy policy</a>.
+            </div>
+          </div>
+          <div ng-if="formValues.customLogo">
+            <div class="form-group">
+              <span class="col-sm-12 text-muted small">
+                You can specify the URL to your logo here. For an optimal display, logo dimensions should be 155px by 55px.
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="logo_url" class="col-sm-1 control-label text-left">
+                URL
+              </label>
+              <div class="col-sm-11">
+                <input type="text" class="form-control" ng-model="settings.LogoURL" id="logo_url" placeholder="https://mycompany.com/logo.png" />
+              </div>
+            </div>
+          </div>
+          <!-- !logo -->
+          <!-- templates -->
+          <div class="col-sm-12 form-section-title">
+            App Templates
+          </div>
+          <div>
+            <div class="form-group">
+              <span class="col-sm-12 text-muted small">
+                You can specify the URL to your own template definitions file here. See
+                <a href="https://www.portainer.io/documentation/how-to-use-templates/" target="_blank">Portainer documentation</a> for more details.
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="templates_url" class="col-sm-1 control-label text-left">
+                URL
+              </label>
+              <div class="col-sm-11">
+                <input type="text" class="form-control" ng-model="settings.TemplatesURL" id="templates_url" placeholder="https://myserver.mydomain/templates.json" required />
+              </div>
+            </div>
+          </div>
+          <!-- !templates -->
+          <!-- host-filesystem -->
+          <div class="col-sm-12 form-section-title">
+            Host and Filesystem
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="toggle_enableHostManagementFeatures" class="control-label text-left">
+                Enable host management features
+                <portainer-tooltip position="bottom" message="Enable host management features: host system browsing and advanced host details."></portainer-tooltip>
+              </label>
+              <label class="switch" style="margin-left: 20px;">
+                <input type="checkbox" name="toggle_enableHostManagementFeatures" ng-model="formValues.enableHostManagementFeatures" /><i></i>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="toggle_allowvolumebrowser" class="control-label text-left">
+                Enable volume management for non-administrators
+                <portainer-tooltip position="bottom" message="When enabled, regular users will be able to use Portainer volume management features."></portainer-tooltip>
+              </label>
+              <label class="switch" style="margin-left: 20px;"> <input type="checkbox" name="toggle_allowvolumebrowser" ng-model="formValues.enableVolumeBrowser" /><i></i> </label>
+            </div>
+          </div>
+          <!-- !host-filesystem -->
+          <!-- security -->
+          <div class="col-sm-12 form-section-title">
+            Docker Endpoint Security Options
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="toggle_allowbindmounts" class="control-label text-left">
+                Disable bind mounts for non-administrators
+                <portainer-tooltip position="bottom" message="When enabled, regular users will not be able to use bind mounts when creating containers."></portainer-tooltip>
+              </label>
+              <label class="switch" style="margin-left: 20px;"> <input type="checkbox" name="toggle_allowbindmounts" ng-model="formValues.restrictBindMounts" /><i></i> </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="toggle_allowbindmounts" class="control-label text-left">
+                Disable privileged mode for non-administrators
+                <portainer-tooltip position="bottom" message="When enabled, regular users will not be able to use privileged mode when creating containers."></portainer-tooltip>
+              </label>
+              <label class="switch" style="margin-left: 20px;"> <input type="checkbox" name="toggle_allowbindmounts" ng-model="formValues.restrictPrivilegedMode" /><i></i> </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="toggle_allowHostNamespaceForRegularUsers" class="control-label text-left">
+                Disable the use of host PID 1 for non-administrators
+                <portainer-tooltip position="bottom" message="Prevent users from accessing the host filesystem through the host PID namespace."></portainer-tooltip>
+              </label>
+              <label class="switch" style="margin-left: 20px;">
+                <input type="checkbox" name="toggle_allowHostNamespaceForRegularUsers" ng-model="formValues.restrictHostNamespaceForRegularUsers" /><i></i>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="toggle_disableStackManagementForRegularUsers" class="control-label text-left">
+                Disable the use of Stacks for non-administrators
+              </label>
+              <label class="switch" style="margin-left: 20px;">
+                <input type="checkbox" name="toggle_disableStackManagementForRegularUsers" ng-model="formValues.disableStackManagementForRegularUsers" /><i></i>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="toggle_disableDeviceMappingForRegularUsers" class="control-label text-left">
+                Disable device mappings for non-administrators
+              </label>
+              <label class="switch" style="margin-left: 20px;">
+                <input type="checkbox" name="toggle_disableDeviceMappingForRegularUsers" ng-model="formValues.disableDeviceMappingForRegularUsers" /><i></i>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="toggle_disableContainerCapabilitiesForRegularUsers" class="control-label text-left">
+                Disable container capabilities for non-administrators
+              </label>
+              <label class="switch" style="margin-left: 20px;">
+                <input type="checkbox" name="toggle_disableContainerCapabilitiesForRegularUsers" ng-model="formValues.disableContainerCapabilitiesForRegularUsers" /><i></i>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group" ng-if="isContainerEditDisabled()">
+            <span class="col-sm-12 text-muted small">
+              Note: The recreate/duplicate/edit feature is currently disabled (for non-admin users) by one or more security settings.
+            </span>
+          </div>
+          <!-- !security -->
+          <!-- edge -->
+          <div class="col-sm-12 form-section-title">
+            Edge Compute
+          </div>
+          <div class="form-group">
+            <label for="edge_checkin" class="col-sm-2 control-label text-left">
+              Edge agent default poll frequency
+              <portainer-tooltip
+                position="bottom"
+                message="Interval used by default by each Edge agent to check in with the Portainer instance. Affects Edge endpoint management and Edge compute features."
+              ></portainer-tooltip>
+            </label>
+            <div class="col-sm-10">
+              <select
+                id="edge_checkin"
+                class="form-control"
+                ng-model="settings.EdgeAgentCheckinInterval"
+                ng-options="+(opt.value) as opt.key for opt in state.availableEdgeAgentCheckinOptions"
+              ></select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label for="toggle_enableEdgeComputeFeatures" class="control-label text-left">
+                Enable edge compute features
+              </label>
+              <label class="switch" style="margin-left: 20px;">
+                <input type="checkbox" name="toggle_enableEdgeComputeFeatures" ng-model="formValues.enableEdgeComputeFeatures" /><i></i>
+              </label>
+            </div>
+          </div>
+          <!-- !edge -->
+          <!-- actions -->
+          <div class="form-group">
+            <div class="col-sm-12">
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                ng-click="saveApplicationSettings()"
+                ng-disabled="state.actionInProgress || !settings.TemplatesURL"
+                button-spinner="state.actionInProgress"
+              >
+                <span ng-hide="state.actionInProgress">Save settings</span>
+                <span ng-show="state.actionInProgress">Saving...</span>
+              </button>
+            </div>
+          </div>
+          <!-- !actions -->
+        </form>
+      </rd-widget-body>
+    </rd-widget>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <rd-widget>
+      <rd-widget-header icon="fa-tags" title-text="Hidden containers"></rd-widget-header>
+      <rd-widget-body>
+        <form class="form-horizontal" ng-submit="addFilteredContainerLabel()" name="addTagForm">
+          <div class="form-group">
+            <span class="col-sm-12 text-muted small">
+              You can hide containers with specific labels from Portainer UI. You need to specify the label name and value.
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="header_name" class="col-sm-1 control-label text-left">Name</label>
+            <div class="col-sm-11 col-md-4">
+              <input type="text" required class="form-control" id="header_name" name="label_name" ng-model="formValues.labelName" placeholder="e.g. com.example.foo" />
+            </div>
+            <label for="header_value" class="col-sm-1 margin-sm-top control-label text-left">Value</label>
+            <div class="col-sm-11 col-md-4 margin-sm-top">
+              <input type="text" class="form-control" id="header_value" ng-model="formValues.labelValue" placeholder="e.g. bar" />
+            </div>
+            <div class="col-sm-12 col-md-2 margin-sm-top">
+              <button type="submit" class="btn btn-primary btn-sm" ng-disabled="!formValues.labelName"><i class="fa fa-plus space-right" aria-hidden="true"></i>Add filter</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12 table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="label in settings.BlackListedLabels">
+                    <td>{{ label.name }}</td>
+                    <td>{{ label.value }}</td>
+                    <td
+                      ><button type="button" class="btn btn-danger btn-xs" ng-click="removeFilteredContainerLabel($index)"
+                        ><i class="fa fa-trash-alt space-right" aria-hidden="true"></i>Remove</button
+                      ></td
+                    >
+                  </tr>
+                  <tr ng-if="settings.BlackListedLabels.length === 0">
+                    <td colspan="3" class="text-center text-muted">No filter available.</td>
+                  </tr>
+                  <tr ng-if="!settings.BlackListedLabels">
+                    <td colspan="3" class="text-center text-muted">Loading...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- !filtered-labels -->
+        </form>
+      </rd-widget-body>
+    </rd-widget>
+  </div>
+</div>
