@@ -1,0 +1,43 @@
+Contains source code for portainer binary bundled with October release of 
+Super Container OS https://sourceforge.net/projects/super-container-os/
+
+How to Deploy Portainer without Docker
+
+
+Download and extract the binary to a location on disk:
+
+$ cd /opt
+$ wget https://github.com/portainer/portainer/releases/download/2.0.0/portainer-2.0.0-linux-amd64.tar.gz
+$ tar xvpfz portainer-2.0.0-linux-amd64.tar.gz
+Then just use the portainer binary as you would use CLI flags with Docker.
+
+Note: Portainer will try to write its data into the /data folder by default. You must ensure this folder exists 
+first (or change the path it will use via the --data, see below).
+
+$ mkdir /data
+$ cd /opt/portainer
+$ ./portainer --template-file "${PWD}/templates.json"
+You can use the -p flag to serve Portainer on another port:
+
+$ ./portainer -p :8080
+You can change the folder used by Portainer to store its data with the --data flag:
+
+$ ./portainer --data /opt/portainer-data
+
+.. raw:: html
+
+    <script type="text/javascript">
+    if (String(window.location).indexOf("readthedocs") !== -1) {
+        window.location.replace('https://documentation.portainer.io/');
+    }
+    </script>
+
+All this process is already done so just run portainer as sudo/root in your Super Container OS and point your browser 
+to ip addr:9000 with default settings.
+
+
+Major change is that Kubernetes support has landed! You can now manage the deployment of applications atop Kubernetes clusters 
+using the familiar Portainer UX
+
+Refer release notes for portainer 2.0.0 here https://github.com/portainer/portainer/releases
+
